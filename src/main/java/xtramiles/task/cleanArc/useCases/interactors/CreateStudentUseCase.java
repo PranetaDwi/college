@@ -8,6 +8,7 @@ import xtramiles.task.cleanArc.useCases.port.output.StudentRepositoryPort;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 public class CreateStudentUseCase implements CreateStudentInputPort {
 
@@ -21,11 +22,21 @@ public class CreateStudentUseCase implements CreateStudentInputPort {
     public StudentResponseDTO createStudent(StudentRequestDTO request) {
         Student student = new Student(request.nim(), request.namaDepan(), request.namaBelakang(), request.tanggalLahir());
 
-        Student savedStudent = studentRepositoryPort.save(student);
+        int umur = Period.between(student.getTanggalLahir(), LocalDate.now()).getYears();
 
-        StudentResponseDTO response = mapToResponse(savedStudent);
 
-        return response;
+        if (umur<=0) {
+            throw new RuntimeException("Error");
+        } else {
+
+            Student savedStudent = studentRepositoryPort.save(student);
+
+            StudentResponseDTO response = mapToResponse(savedStudent);
+
+            return response;
+        }
+
+
     }
 
     private StudentResponseDTO mapToResponse(Student student){
@@ -44,11 +55,13 @@ public class CreateStudentUseCase implements CreateStudentInputPort {
             namaLengkap = student.getNamaDepan();
         }
 
-
         return new StudentResponseDTO(
                 student.getId(),
                 student.getNim(),
+                student.getNamaDepan(),
+                student.getNamaBelakang(),
                 namaLengkap,
+                student.getTanggalLahir().toString(),
                 umur
         );
     }

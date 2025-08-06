@@ -50,7 +50,10 @@ public class ListStudentsUseCase implements ListStudentsInputPort {
         return new StudentResponseDTO(
                 student.getId(),
                 student.getNim(),
+                student.getNamaDepan(),
+                student.getNamaBelakang(),
                 namaLengkap,
+                student.getTanggalLahir().toString(),
                 umur
         );
     }

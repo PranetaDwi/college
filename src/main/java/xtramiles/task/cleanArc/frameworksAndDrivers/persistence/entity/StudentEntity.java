@@ -12,7 +12,7 @@ public class StudentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nim", nullable = false)
+    @Column(name = "nim", nullable = false, unique = true)
     private String nim;
 
     @Column(name = "namaDepan", nullable = false)

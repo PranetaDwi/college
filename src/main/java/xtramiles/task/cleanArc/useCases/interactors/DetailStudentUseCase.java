@@ -48,7 +48,10 @@ public class DetailStudentUseCase implements DetailStudentInputPort {
         return new StudentResponseDTO(
                 student.getId(),
                 student.getNim(),
+                student.getNamaDepan(),
+                student.getNamaBelakang(),
                 namaLengkap,
+                student.getTanggalLahir().toString(),
                 umur
         );
     }

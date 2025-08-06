@@ -31,6 +31,7 @@ public class Student {
         this.tanggalLahir = tanggalLahir;
     }
 
+
     public Student(Long id, String nim, String namaDepan, String namaBelakang, LocalDate tanggalLahir){
 
         this.id = id;

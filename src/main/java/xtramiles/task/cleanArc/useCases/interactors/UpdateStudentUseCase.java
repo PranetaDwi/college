@@ -34,9 +34,17 @@ public class UpdateStudentUseCase implements UpdateStudentInputPort {
         student.setNamaBelakang(request.namaBelakang());
         student.setTanggalLahir(request.tanggalLahir());
 
-        Student updatedStudent = studentRepositoryPort.updateStudent(id, student);
+        int umur = Period.between(student.getTanggalLahir(), LocalDate.now()).getYears();
 
-        return mapToResponse(updatedStudent);
+        if (umur<=0) {
+            throw new RuntimeException("Error");
+        } else {
+
+            Student updatedStudent = studentRepositoryPort.updateStudent(id, student);
+
+            return mapToResponse(updatedStudent);
+        }
+
 
     }
 
@@ -60,7 +68,10 @@ public class UpdateStudentUseCase implements UpdateStudentInputPort {
         return new StudentResponseDTO(
                 student.getId(),
                 student.getNim(),
+                student.getNamaDepan(),
+                student.getNamaBelakang(),
                 namaLengkap,
+                student.getTanggalLahir().toString(),
                 umur
         );
     }

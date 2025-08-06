@@ -28,6 +28,7 @@ public class StudentRepositoryImpl implements StudentRepositoryPort {
                 student.getTanggalLahir()
         );
 
+
         StudentEntity savedEntity = studentJpaRepository.save(entity);
 
         Student savedStudent = new Student(
